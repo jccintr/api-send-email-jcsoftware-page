@@ -1,13 +1,40 @@
 import { sendEmail } from "../util/sendEmail.js";
+import { sendEmailFromBrazDriverSupport } from "../util/sendEmailFromBrazDriverSupport.js";
 
  export const sendMessage =  async (req,res) => {
 
     const {name,email,phone,message} = req.body;
-    const body = `Nome: ${name}\n\nEmail: ${email}\n\nTelefone: ${phone}\n\n\n${message}`;
+
+    if(!name || !message || !phone){
+      return res.status(422).json({message: 'Campos requeridos não informados.'});
+    }
+    
+
+    const body = `Nome: ${name}\n\nEmail: ${email?email:'Não informado'}\n\nTelefone: ${phone}\n\n\n${message}`;
+
     if (sendEmail(body)) {
         return res.status(200).json({message: 'Mensagem enviada com sucesso.'});
     } else {
-  return res.status(400).json({message: 'Falha ao enviar mensagem.'});
+        return res.status(400).json({message: 'Falha ao enviar mensagem.'});
     }
+
    
  }
+
+  export const sendMessageFromSuporteBrazDriver =  async (req,res) => {
+
+    const {name,email,phone,message} = req.body;
+
+    if(!name || !message || !phone){
+      return res.status(422).json({message: 'Campos requeridos não informados.'});
+    }
+
+    const body = `Nome: ${name}\n\nEmail: ${email?email:'Não informado'}\n\nTelefone: ${phone}\n\n\n${message}`;
+
+    if (sendEmailFromBrazDriverSupport(body)) {
+        return res.status(200).json({message: 'Mensagem enviada com sucesso.'});
+    } else {
+        return res.status(400).json({message: 'Falha ao enviar mensagem.'});
+    }
+    
+  }
