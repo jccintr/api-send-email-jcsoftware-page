@@ -29,12 +29,20 @@ import { sendEmailFromBrazDriverSupport } from "../util/sendEmailFromBrazDriverS
       return res.status(422).json({message: 'Campos requeridos não informados.'});
     }
 
-    const body = `Nome: ${name}\n\nEmail: ${email?email:'Não informado'}\n\nTelefone: ${phone}\n\n\n${message}`;
+    const body = `<p><strong>Nome:</strong> ${name}</p>
+                  <p><strong>Email:</strong> ${email?email:'Não informado'}
+                  </p><p><strong>Telefone:</strong> ${phone}</p>
+                  <p><strong>Mensagem:</strong></p>
+                  <p>${message}</p>`;
 
     if (sendEmailFromBrazDriverSupport(body)) {
+
         return res.status(200).json({message: 'Mensagem enviada com sucesso.'});
+
     } else {
+
         return res.status(400).json({message: 'Falha ao enviar mensagem.'});
+        
     }
     
   }

@@ -7,7 +7,7 @@ const SendEmailRouter = Router();
 
 
 SendEmailRouter.post("/send",sendMessage);
-SendEmailRouter.post("/send/brazdriver",sendMessageFromSuporteBrazDriver);
+SendEmailRouter.post("/send/brazdriver/suporte",sendMessageFromSuporteBrazDriver);
 
 
 
