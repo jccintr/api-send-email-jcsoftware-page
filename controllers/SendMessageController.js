@@ -50,13 +50,14 @@ import { sendEmailBrazTaxi } from "../util/sendEmailBrazTaxi.js";
 
    export const sendMessageFromBrazTaxi =  async (req,res) => {
 
-    const {name,email,phone,message} = req.body;
+    const {name,email,phone,message, subject} = req.body;
 
-    if(!name || !message || !phone){
+    if(!name || !message || !phone || !subject){
       return res.status(422).json({message: 'Campos requeridos não informados.'});
     }
 
-    const body = `<p><strong>Nome:</strong> ${name}</p>
+    const body = `<p><strong>Assunto:</strong> ${subject}</p>
+                  <p><strong>Nome:</strong> ${name}</p>
                   <p><strong>Email:</strong> ${email?email:'Não informado'}
                   </p><p><strong>Telefone:</strong> ${phone}</p>
                   <p><strong>Mensagem:</strong></p>
